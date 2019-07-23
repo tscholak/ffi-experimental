@@ -2,6 +2,15 @@
 
 let
   overlayShared = pkgsNew: pkgsOld: {
+    libtorch_cpu =
+      let src = pkgsOld.fetchFromGitHub {
+          owner  = "stites";
+          repo   = "libtorch-nix";
+          rev    = "6b02c3746f6557ceee5d742625b6e04f3559e2a7";
+          sha256 = "0nc2la37a2rnssgf36s4gvwq5vz6l3p6sqsck7kasaprr42sfxpb";
+        };
+      in
+      (import "${src}/release.nix" { }).libtorch_cpu;
     haskell = pkgsOld.haskell // {
       packages = pkgsOld.haskell.packages // {
         "${compiler}" = pkgsOld.haskell.packages."${compiler}".override (old: {
@@ -19,14 +28,14 @@ let
                           { }
                         );
                     hasktorch-ffi =
-                      failOnAllWarnings
+                      # failOnAllWarnings
                         (haskellPackagesNew.callCabal2nix
                           "ffi"
                           ../ffi
                           { }
                         );
                     hasktorch =
-                      failOnAllWarnings
+                      # failOnAllWarnings
                         (haskellPackagesNew.callCabal2nix
                           "hasktorch"
                           ../hasktorch

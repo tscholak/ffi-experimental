@@ -71,11 +71,12 @@ library
                     , sysinfo
                     , async
  extra-libraries:     stdc++
-                    , c10
-                    , iomp5
-                    , mklml
-                    , caffe2
-                    , torch
+                    , libtorch_cpu
+                    --, c10
+                    --, iomp5
+                    --, mklml
+                    --, caffe2
+                    --, torch
  extra-ghci-libraries: stdc++
  if os(darwin)
   ld-options: -Wl,-keep_dwarf_unwind
